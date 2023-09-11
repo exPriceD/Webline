@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+
+<div class="modal fade" id="modal-callback" tabindex="-1" role="dialog" aria-labelledby="modal-callbackLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none" style="margin-top: -7px; margin-right: 10px;">
+                            <g clip-path="url(#clip0_1_3678)">
+                                <path d="M16.0001 29.3334C23.3639 29.3334 29.3334 23.3639 29.3334 16.0001C29.3334 8.63628 23.3639 2.66675 16.0001 2.66675C8.63628 2.66675 2.66675 8.63628 2.66675 16.0001C2.66675 23.3639 8.63628 29.3334 16.0001 29.3334Z" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 21.3333V16" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 10.6667H16.0133" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </g>
+                            <defs>
+                                <clipPath id="clip0_1_3678">
+                                    <rect width="32" height="32" fill="white" /> </clipPath>
+                            </defs>
+                        </svg>
+                        <h5 class="modal-title" id="modal-callbackLabel">Ввести промокод</h5></div>
+                </div>
+                <div class="modal-body" style="padding-top: 0px;">
+                    <p>Введите свой промокод и получите денежную сумму на ваш баланс. Если промокод не найден, но вы уверены в корректности ввода, обратитесь к модератору сайта или напишите нам на почту email@mail.ru</p>
+                    <div style="margin-bottom: 20px;">
+                        <input type="text" placeholder="Промокод" id="promocode" style="width: 100%; height: 45px; margin-bottom: 7px;">
+                        <h11 id="error_text" style="display:none; color:red">Промокод не найден</h11>
+                    </div>
+                    <div class="modal_btn">
+                        <button id="sendFormBtn">Окей</button>
+                        <button id="close_promo" data-bs-dismiss="modal" aria-label="Close" class="modal_btn1">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row">
+    {% if user.role != "Администратор" %}
+	<div class="col-12">
+		<h1 class="zakazs_h1">Активные заказы</h1>
+        {% if active_orders %}
+        {% for order in active_orders %}
+		<div class="zakaz mt-4">
+			<div class="zakaz_head zakaz_head1">
+				<div class="row">
+					<div class="col-md-9">
+						<h2 class="zakazs_h2">Заказ №{{ order.id }} от {{ order.date }}</h2> </div>
+					<div class="col-md-3 text_align_left_mobile">
+						<h3 class="zakazs_h3">Дедлайн: <span style="font-weight: 400;">{{ order.deadline }}</span></h3> </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="zakaz_cont">
+						<h4>Название:</h4><span> {{ order.title }}</span>
+						<br>
+						<h4>Описание: </h4><span> {{ order.description }}</span>
+						<br>
+						<h4>Статус:</h4><span> {{ order.status }}</span> </div>
+				</div>
+				<a href="/orders/{{ order.id }}" class="col-md-6 mt-3 pb-3">
+					<button class="zakaz_btn">Подробнее</button>
+				</a>
+				<div class="col-md-6 text_align_left_mobile mt-md-3 pb-3"> {% if user.role == 'Модератор' or user.role == 'Администратор' %}
+					<h6>Оплата: <span style="color: #50A663;">{{ (order.price|int * 0.05)|int }} ₽</span></h6> {% elif user.role == 'Backend-developer' or user.role == 'Frontend-developer' or user.role == 'Fullstack-developer' %}
+					<h6>Оплата: <span style="color: #50A663;">{{ (order.price|int * 0.7)|int }} ₽</span></h6> {% endif %} </div>
+			</div>
+		</div>
+        {% endfor %}
+        {% else %}
+		<div class="zakaz mt-4">
+			<div class="zakaz_head zakaz_head1">
+				<div class="row">
+					<div class="col-md-9">
+						<h2>Заказы не найдены</h2> </div>
+				</div>
+			</div>
+		</div>
+        {% endif %}
+    </div>
+	<div class="col-12">
+		<h1 class="zakazs_h1">Завершенные заказы</h1> {% if ended_orders %} {% for order in ended_orders %}
+		<div class="zakaz mt-4">
+			<div class="zakaz_head zakaz_head1">
+				<div class="row">
+					<div class="col-md-9">
+						<h2 class="zakazs_h2">Заказ №{{ order.id }} от {{ order.date }}</h2> </div>
+					<div class="col-md-3" style="text-align: right;">
+						<h3 class="zakazs_h3">Дедлайн: <span style="font-weight: 400;">{{ order.deadline }}</span></h3> </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="zakaz_cont">
+						<h4>Название:</h4><span> {{ order.title }}</span>
+						<br>
+						<h4>Описание: </h4><span> {{ order.description }}</span>
+						<br>
+						<h4>Статус:</h4><span> {{ order.status }}</span> </div>
+				</div>
+				<a href="/orders/{{ order.id }}" class="col-6 mt-3 pb-3">
+					<button class="zakaz_btn">Подробнее</button>
+				</a>
+				<div class="col-6 mt-3 pb-3" style="text-align: right;">
+					<h6>Оплата: <span style="color: #50A663;">{{ order.price }} ₽</span></h6> </div>
+			</div>
+		</div>
+        {% endfor %}
+        {% else %}
+		<div class="zakaz mt-4">
+			<div class="zakaz_head zakaz_head1">
+				<div class="row">
+					<div class="col-9">
+						<h2>Нет завершенных заказов</h2> </div>
+				</div>
+			</div>
+		</div>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% if user.role == "Администратор" %}
+	<div class="col-12">
+		<h1 class="zakazs_h1">Заказы требующие участие администратора</h1> {% if consideration_moderator_requests %} {% for requests in consideration_moderator_requests %}
+		<div class="zakaz mt-4 active" id="request_{{ requests.id }}">
+			<div class="zakaz_head zakaz_head1">
+				<div class="row">
+					<div class="col-9">
+						<h2 class="zakazs_h2">Заявка №{{ requests.id }} от {{ requests.date }}. Заказ №{{ requests.order_id }}</h2> </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="zakaz_cont">
+						<h4>Модератор:</h4><span> {{ requests.moderator_name }}</span>
+						<br>
+						<h4>Статус:</h4><span> {{ requests.status }}</span>
+						<br>
+						<h4>Комментарий модератора: </h4><span> {{ requests.comment }}</span> </div>
+				</div>
+				<div class="col-12 mt-3 pb-3">
+					<a href="/orders/{{ requests.order_id }}" class="col-6 mt-3 pb-3">
+						<button class="zakaz_btn">Перейти к заказу</button>
+					</a>
+					<a data-bs-toggle="modal" data-bs-target="#modal-callback-admin" id="endBtn_{{ requests.id }}">
+						<button class="zakaz_btn" onclick="endReq('{{ requests.id }}')">Завершить</button>
+					</a>
+				</div>
+			</div>
+		</div>
+        {% endfor %}
+        {% else %}
+		<div class="zakaz mt-4">
+			<div class="zakaz_head zakaz_head1">
+				<div class="row">
+					<div class="col-9">
+						<h2>Заявки не найдены</h2> </div>
+				</div>
+			</div>
+		</div>
+        {% endif %}
+		<div class="zakaz mt-4" id="not_active" style="display:none">
+			<div class="zakaz_head zakaz_head1">
+				<div class="row">
+					<div class="col-9">
+						<h2>Заявки не найдены</h2> </div>
+				</div>
+			</div>
+		</div>
+		<h1 class="zakazs_h1">Завершенные</h1>
+		<div class="zakaz mt-4" style="display:none" id="fake_r"></div> {% if ended_moderator_requests %} {% for requests in ended_moderator_requests %}
+		<div class="zakaz mt-4 ended" id="request_{{ requests.id }}">
+			<div class="zakaz_head zakaz_head1">
+				<div class="row">
+					<div class="col-9">
+						<h2 class="zakazs_h2">Заявка №{{ requests.id }} от {{ requests.date }}. Заказ №{{ requests.order_id }}</h2> </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="zakaz_cont" style="padding-bottom: 15px;">
+						<h4>Модератор:</h4><span> {{ requests.moderator_name }}</span>
+						<br>
+						<h4>Статус:</h4><span> {{ requests.status }}</span>
+						<br>
+						<h4>Комментарий модератора: </h4><span> {{ requests.comment }}</span> </div>
+					<div class="zakaz_cont" style="border-top: 1px solid rgba(55, 44, 157, 0.40);">
+						<h4>Рассмотренно администратором:</h4><span> {{ requests.admin_name }}</span>
+						<br>
+						<h4>Ответ администратора:</h4><span> {{ requests.admin_comment }}</span>
+						<br>
+						<h4>Дата ответа:</h4><span> {{ requests.answer_date }}</span> </div>
+				</div>
+				<div class="col-12 mt-3 pb-3">
+					<a href="/orders/{{ requests.order_id }}" class="col-6 mt-3 pb-3">
+						<button class="zakaz_btn">Перейти к заказу</button>
+					</a>
+				</div>
+			</div>
+		</div>
+        {% endfor %}
+        {% else %}
+		<div class="zakaz mt-4" id="not_request_msg">
+			<div class="zakaz_head zakaz_head1">
+				<div class="row">
+					<div class="col-9">
+						<h2>Заявки не найдены</h2> </div>
+				</div>
+			</div>
+		</div>
+        {% endif %}
+    </div>
+    {% endif %}
+	<div class="toast-container position-fixed bottom-0 end-0 p-3">
+		<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="width: 450px;">
+			<div class="modal-dialog modal_dialog_new" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="border-bottom: 0px;">
+						<div> <img src="{{ url_for('static', filename='img/CheckCircle.svg') }}" alt="" style="margin-top: -5px; margin-right: 10px;">
+							<h5 class="modal-title" id="modal-callbackLabel-notif">Заявка завершена</h5> </div>
+						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+					</div>
+					<div class="modal-body" style="padding-top: 10px;">
+						<p>Заявка была завершена. Модератор сможет увидеть ваш комментарий в своем личном кабинете</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="toast-container position-fixed bottom-0 end-0 p-3">
+		<div id="liveToast-promo" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="width: 450px;">
+			<div class="modal-dialog modal_dialog_new" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="border-bottom: 0px;">
+						<div> <img src="{{ url_for('static', filename='img/CheckCircle.svg') }}" alt="" style="margin-top: -5px; margin-right: 10px;">
+							<h5 class="modal-title" id="modal-callbackLabel-promo">Промокод применен</h5> </div>
+						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+					</div>
+					<div class="modal-body" style="padding-top: 10px;">
+						<p id="text_promo"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+function endReq(r_id) {
+	$('#endRequest').click(function(e) {
+		var form_data = new FormData();
+		form_data.append('admin_comment', $("#admin_comment").val());
+		$.ajax({
+			type: 'POST',
+			dataType: 'json',
+			url: `/admin/help/accept/${r_id}`,
+			data: form_data,
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: function(data) {
+				console.log(data);
+				const toastLiveExample = document.getElementById('liveToast')
+				const toast = new bootstrap.Toast(toastLiveExample)
+				toast.show()
+				$(`#request_${r_id}`).insertBefore('#fake_r');
+				$(`#request_${r_id}`).attr('class', 'zakaz mt-4 ended');
+				$('#not_request_msg').css('display', 'none');
+				$(`#endBtn_${r_id}`).remove();
+				var active = $('.active');
+				if(active.length == 0) {
+					$('#not_active').css('display', 'flex');
+				}
+			}
+		})
+	});
+}
+</script>
+{% endblock %}

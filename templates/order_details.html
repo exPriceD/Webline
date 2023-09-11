@@ -1,0 +1,860 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+<div class="modal fade" id="modal-callback" tabindex="-1" role="dialog" aria-labelledby="modal-callbackLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none" style="margin-top: -7px; margin-right: 10px;">
+                            <g clip-path="url(#clip0_1_3678)">
+                                <path d="M16.0001 29.3334C23.3639 29.3334 29.3334 23.3639 29.3334 16.0001C29.3334 8.63628 23.3639 2.66675 16.0001 2.66675C8.63628 2.66675 2.66675 8.63628 2.66675 16.0001C2.66675 23.3639 8.63628 29.3334 16.0001 29.3334Z" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 21.3333V16" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 10.6667H16.0133" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </g>
+                            <defs>
+                                <clipPath id="clip0_1_3678">
+                                    <rect width="32" height="32" fill="white" /> </clipPath>
+                            </defs>
+                        </svg>
+                        <h5 class="modal-title" id="modal-callbackLabel">Ввести промокод</h5></div>
+                </div>
+                <div class="modal-body" style="padding-top: 0px;">
+                    <p>Введите свой промокод и получите денежную сумму на ваш баланс. Если промокод не найден, но вы уверены в корректности ввода, обратитесь к модератору сайта или напишите нам на почту email@mail.ru</p>
+                    <div style="margin-bottom: 20px;">
+                        <input type="text" placeholder="Промокод" id="promocode" style="width: 100%; height: 45px; margin-bottom: 7px;">
+                        <h11 id="error_text" style="display:none; color:red">Промокод не найден</h11>
+                    </div>
+                    <div class="modal_btn">
+                        <button id="sendFormBtn">Окей</button>
+                        <button id="close_promo" data-bs-dismiss="modal" aria-label="Close" class="modal_btn1">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal fade" id="modal-callback-dialog" tabindex="-1" role="dialog" aria-labelledby="modal-callbackLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none" style="margin-top: -7px; margin-right: 10px;">
+                            <g clip-path="url(#clip0_1_3678)">
+                                <path d="M16.0001 29.3334C23.3639 29.3334 29.3334 23.3639 29.3334 16.0001C29.3334 8.63628 23.3639 2.66675 16.0001 2.66675C8.63628 2.66675 2.66675 8.63628 2.66675 16.0001C2.66675 23.3639 8.63628 29.3334 16.0001 29.3334Z" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 21.3333V16" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 10.6667H16.0133" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </g>
+                            <defs>
+                                <clipPath id="clip0_1_3678">
+                                    <rect width="32" height="32" fill="white" /> </clipPath>
+                            </defs>
+                        </svg>
+                        <h5 class="modal-title" id="modal-callbackLabel-dialog">Помощь администратора</h5>
+                    </div>
+                </div>
+                <div class="modal-body" style="padding-top: 0px;">
+                    <p>Пожалуйста, опишите какая проблема возникла с заказом. Этом поможет ускорить процесс обработки заявки и администратор сможет вам помочь. </p>
+                    <textarea style="height: 100px; margin-bottom: 20px; width: 100%;" id="comment_for_admin" placeholder="Комментарий для администратора"></textarea>
+                    <div class="modal_btn">
+                        <button id="send_for_admin">Отправить</button>
+                        <button id="close_admin_help" data-bs-dismiss="modal" aria-label="Close" class="modal_btn1">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal fade" id="modal-callback-payments" tabindex="-1" role="dialog" aria-labelledby="modal-callbackLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none" style="margin-top: -7px; margin-right: 10px;">
+                            <g clip-path="url(#clip0_1_3678)">
+                                <path d="M16.0001 29.3334C23.3639 29.3334 29.3334 23.3639 29.3334 16.0001C29.3334 8.63628 23.3639 2.66675 16.0001 2.66675C8.63628 2.66675 2.66675 8.63628 2.66675 16.0001C2.66675 23.3639 8.63628 29.3334 16.0001 29.3334Z" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 21.3333V16" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 10.6667H16.0133" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </g>
+                            <defs>
+                                <clipPath id="clip0_1_3678">
+                                    <rect width="32" height="32" fill="white" /> </clipPath>
+                            </defs>
+                        </svg>
+                        <h5 class="modal-title" id="modal-callbackLabel-payments">Выплаты исполнителям</h5>
+                    </div>
+                </div>
+                <div class="modal-body" style="padding-top: 0px;">
+                    <p>Введите, сколько получит каждый исполнитель. Если поле недоступно, то исполнитель данной роли не выбран, или у него стоит фиксированная выплата.</p>
+                    <p>Сумма для распределения <b>{{ (order.price|int * 0.75)|int }} ₽</b></p>
+                    <p style="margin-bottom: 0;">Модератор</p>
+                    {% if user.role == 'Администратор' %}
+                    <input class="payments" type="text" id="moderator_payment" value="{{ order.moderator_payment }}">
+                    {% else %}
+                    <input class="payments" type="text" id="moderator_payment" value="{{ order.moderator_payment }}" disabled>
+                    {% endif %}
+                    <p style="margin-bottom: 0;">Дизайнер</p>
+                    {% if order.design_id %}
+                    <input class="payments" type="text" placeholder="" id="designer_payment" value="{{ order.designer_payment }}">
+                    {% else %}
+                    <input class="payments" type="text" placeholder="" id="designer_payment" value="" disabled>
+                    {% endif %}
+                    <p style="margin-bottom: 0;">Frontend-developer</p>
+                    {% if order.frontend_id %}
+                    <input class="payments" type="text" placeholder="" id="frontend_payment" value="{{ order.frontend_payment }}">
+                    {% else %}
+                    <input class="payments" type="text" placeholder="" id="frontend_payment" value="" disabled>
+                    {% endif %}
+                    <p style="margin-bottom: 0;">Backend-developer</p>
+                    {% if order.backend_id %}
+                    <input class="payments" type="text" placeholder="" id="backend_payment" value="{{ order.backend_payment }}">
+                    {% else %}
+                    <input class="payments" type="text" placeholder="" id="backend_payment" value="" disabled>
+                    {% endif %}
+                    <div class="modal_btn">
+                        <button data-bs-dismiss="modal" aria-label="Close" id="update_payments_value">Сохранить</button>
+                        <button data-bs-dismiss="modal" aria-label="Close" class="modal_btn1">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal fade" id="modal-callback-executor" tabindex="-1" role="dialog" aria-labelledby="modal-callbackLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog1" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-header_mob" style="border-bottom: 0px;">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="d-md-block d-none" width="28" height="28" viewBox="0 0 32 32" fill="none" style="margin-top: -7px;margin-right: 10px;">
+                            <g clip-path="url(#clip0_1_3678)">
+                                <path d="M16.0001 29.3334C23.3639 29.3334 29.3334 23.3639 29.3334 16.0001C29.3334 8.63628 23.3639 2.66675 16.0001 2.66675C8.63628 2.66675 2.66675 8.63628 2.66675 16.0001C2.66675 23.3639 8.63628 29.3334 16.0001 29.3334Z" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 21.3333V16" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 10.6667H16.0133" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </g>
+                            <defs>
+                                <clipPath id="clip0_1_3678">
+                                    <rect width="32" height="32" fill="white" /> </clipPath>
+                            </defs>
+                        </svg>
+                        <h5 class="modal-title" id="modal-callbackLabel-role">Выбор исполнителя (Frontend-developer)</h5></div>
+                    <br>
+                    <div class="search_modal">
+                        <input type="text" placeholder="Поиск">
+                        <button><img src="/static/img/s1.svg" alt="" style="width: 21px; height: 21px;"></button>
+                    </div>
+                </div>
+                <div class="modal-body" style="padding-top: 0px; height: 750px; overflow-y: scroll">
+                    {% if frontend_developer %}
+                        <h5 id="current_frontend" style="width: 100%; text-align: center; padding-top: 20px;">Текущий исполнитель</h5>
+                        <div class="modal_body_item" id="current_frontend_card" style="display: flex">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="personal_area1" style="width: 100%;">
+                                            <div class="row">
+                                                <div class="col-3 d-lg-block d-none"> <img src="{{ url_for('static', filename='img/me.png') }}" alt="" style="width: 65px;height: 65px;"> </div>
+                                                <div class="col-lg-9">
+                                                    <h3>{{ frontend_developer.username }}</h3>
+                                                    <h4>{{ frontend_developer.role }}</h4> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="personal_area1">
+                                            <h5>Логин: {{ frontend_developer.login }}</h5>
+                                            <h5>Telegram: {{ frontend_developer.telegram }}</h5> </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="personal_area1">
+                                            <h5>Email: {{ frontend_developer.email }}</h5>
+                                            <h5>Телефон: {{ frontend_developer.phone }}</h5> </div>
+                                    </div>
+                                    <div class="col-md-2 text_align_left_mobile">
+                                        <button data-bs-dismiss="modal" style="background-color: red;" aria-label="Close" class="personal_area1_btn" onclick="deleteExecutor('{{ frontend_developer.id }}', '{{ frontend_developer.role }}', '{{ frontend_developer.username }}')">Удалить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if frontend_developers_list %}
+                        <h5 id="free_frontend" style="width: 100%; text-align: center; padding-top: 20px;">Свободные исполнители</h5>
+                        <div id="frontend_developers_list" style="display: none">
+                            {% for executor in frontend_developers_list %}
+                            <div class="modal_body_item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="personal_area1" style="width: 100%;">
+                                        <div class="row">
+                                            <div class="col-3 d-lg-block d-none"> <img src="{{ url_for('static', filename='img/me.png') }}" alt="" style="width: 65px;height: 65px;"> </div>
+                                            <div class="col-lg-9">
+                                                <h3>{{ executor.username }}</h3>
+                                                <h4>{{ executor.role }}</h4> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="personal_area1">
+                                        <h5>Логин: {{ executor.login }}</h5>
+                                        <h5>Telegram: {{ executor.telegram }}</h5> </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="personal_area1">
+                                        <h5>Email: {{ executor.email }}</h5>
+                                        <h5>Телефон: {{ executor.phone }}</h5> </div>
+                                </div>
+                                <div class="col-md-2 text_align_left_mobile">
+                                    <button data-bs-dismiss="modal" aria-label="Close" class="personal_area1_btn" onclick="selectExecutor('{{ executor.id }}', '{{ executor.role }}', '{{ executor.username }}')">Выбрать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <h5 id="frontend_developers_list_none" style="width: 100%; text-align: center; padding-top: 20px;">Frontend-разработчики отсутствуют</h5>
+                    {% endif %}
+                    {% if backend_developer %}
+                        <h5 id="current_backend" style="width: 100%; text-align: center; padding-top: 20px;">Текущий исполнитель</h5>
+                        <div class="modal_body_item" id="current_backend_card" style="display: flex">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="personal_area1" style="width: 100%;">
+                                        <div class="row">
+                                            <div class="col-3"> <img src="{{ url_for('static', filename='img/me.png') }}" alt="" style="width: 65px;height: 65px;"> </div>
+                                            <div class="col-9">
+                                                <h3>{{ backend_developer.username }}</h3>
+                                                <h4>{{ backend_developer.role }}</h4> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="personal_area1">
+                                        <h5>Логин: {{ backend_developer.login }}</h5>
+                                        <h5>Telegram: {{ backend_developer.telegram }}</h5> </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="personal_area1">
+                                        <h5>Email: {{ backend_developer.email }}</h5>
+                                        <h5>Телефон: {{ backend_developer.phone }}</h5> </div>
+                                </div>
+                                <div class="col-md-2" style="text-align: right;">
+                                    <button data-bs-dismiss="modal" style="background-color: red;" aria-label="Close" class="personal_area1_btn" onclick="deleteExecutor('{{ backend_developer.id }}', '{{ backend_developer.role }}', '{{ backend_developer.username }}')">Удалить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if backend_developers_list %}
+                        <h5 id="free_backend" style="width: 100%; text-align: center; padding-top: 20px;">Свободные исполнители</h5>
+                        <div id="backend_developers_list" style="display: none">
+                            {% for executor in backend_developers_list %}
+                            <div class="modal_body_item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="personal_area1" style="width: 100%;">
+                                            <div class="row">
+                                                <div class="col-3"> <img src="{{ url_for('static', filename='img/me.png') }}" alt="" style="width: 65px;height: 65px;"> </div>
+                                                <div class="col-9">
+                                                    <h3>{{ executor.username }}</h3>
+                                                    <h4>{{ executor.role }}</h4> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="personal_area1">
+                                            <h5>Логин: {{ executor.login }}</h5>
+                                            <h5>Telegram: {{ executor.telegram }}</h5> </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="personal_area1">
+                                            <h5>Email: {{ executor.email }}</h5>
+                                            <h5>Телефон: {{ executor.phone }}</h5> </div>
+                                    </div>
+                                    <div class="col-md-2" style="text-align: right;">
+                                        <button data-bs-dismiss="modal" aria-label="Close" class="personal_area1_btn" onclick="selectExecutor('{{ executor.id }}', '{{ executor.role }}', '{{ executor.username }}')">Выбрать</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <h5 id="backend_developers_list_none" style="width: 100%; text-align: center; padding-top: 20px;">Backend-разработчики отсутствуют</h5>
+                    {% endif %}
+                    {% if design %}
+                        <h5 id="current_designer" style="width: 100%; text-align: center; padding-top: 20px;">Текущий исполнитель</h5>
+                        <div class="modal_body_item" id="current_designer_card" style="display: flex">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="personal_area1" style="width: 100%;">
+                                        <div class="row">
+                                            <div class="col-3"> <img src="{{ url_for('static', filename='img/me.png') }}" alt="" style="width: 65px;height: 65px;"> </div>
+                                            <div class="col-9">
+                                                <h3>{{ design.username }}</h3>
+                                                <h4>{{ design.role }}</h4> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="personal_area1">
+                                        <h5>Логин: {{ design.login }}</h5>
+                                        <h5>Telegram: {{ design.telegram }}</h5> </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="personal_area1">
+                                        <h5>Email: {{ design.email }}</h5>
+                                        <h5>Телефон: {{ design.phone }}</h5> </div>
+                                </div>
+                                <div class="col-md-1" style="text-align: right;">
+                                    <button data-bs-dismiss="modal" style="background-color: red;" aria-label="Close" class="personal_area1_btn" onclick="deleteExecutor('{{ design.id }}', '{{ design.role }}', '{{ design.username }}')">Удалить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if designers_list %}
+                        <h5 id="free_designers" style="width: 100%; text-align: center; padding-top: 20px;">Свободные исполнители</h5>
+                        <div id="designers_list" style="display: none">
+                            {% for executor in designers_list %}
+                            <div class="modal_body_item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="personal_area1" style="width: 100%;">
+                                            <div class="row">
+                                                <div class="col-3"> <img src="{{ url_for('static', filename='img/me.png') }}" alt="" style="width: 65px;height: 65px;"> </div>
+                                                <div class="col-9">
+                                                    <h3>{{ executor.username }}</h3>
+                                                    <h4>{{ executor.role }}</h4> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="personal_area1">
+                                            <h5>Логин: {{ executor.login }}</h5>
+                                            <h5>Telegram: {{ executor.telegram }}</h5> </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="personal_area1">
+                                            <h5>Email: {{ executor.email }}</h5>
+                                            <h5>Телефон: {{ executor.phone }}</h5> </div>
+                                    </div>
+                                    <div class="col-md-2" style="text-align: right;">
+                                        <button data-bs-dismiss="modal" aria-label="Close" class="personal_area1_btn" onclick="selectExecutor('{{ executor.id }}', '{{ executor.role }}', '{{ executor.username }}')">Выбрать</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <h5 id="designers_list_none" style="width: 100%; text-align: center; padding-top: 20px;">Дизайнеры отсутствуют</h5>
+                    {% endif %}
+                </div>
+                <div class="modal_btn_second_bot" style="margin-bottom: 15px;">
+                    <button data-bs-dismiss="modal" aria-label="Close">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal fade" id="modal-callback-end" tabindex="-1" role="dialog" aria-labelledby="modal-callbackLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none" style="margin-top: -7px; margin-right: 10px;">
+                            <g clip-path="url(#clip0_1_3678)">
+                                <path d="M16.0001 29.3334C23.3639 29.3334 29.3334 23.3639 29.3334 16.0001C29.3334 8.63628 23.3639 2.66675 16.0001 2.66675C8.63628 2.66675 2.66675 8.63628 2.66675 16.0001C2.66675 23.3639 8.63628 29.3334 16.0001 29.3334Z" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 21.3333V16" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 10.6667H16.0133" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </g>
+                            <defs>
+                                <clipPath id="clip0_1_3678">
+                                    <rect width="32" height="32" fill="white" /> </clipPath>
+                            </defs>
+                        </svg>
+                        <h5 class="modal-title" id="modal-callbackLabel-end">Завершить зака</h5>
+                    </div>
+                </div>
+                <div class="modal-body" style="padding-top: 0px;">
+                    <p>Вы точно хотите завершить заказ? Перед завершением проверьте выполнили ли вы все пункты: 1.2.3... </p>
+                    <div class="modal_btn">
+                        <button data-bs-dismiss="modal" aria-label="Close" id="end_order_btn">Завершить</button>
+                        <button data-bs-dismiss="modal" aria-label="Close" class="modal_btn1">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container mt-3 pb-5">
+        <div class="row">
+            <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                <div class="zakaz mt-4">
+                    <div class="zakaz_head">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h2>Заказ №{{ order.id }} от {{ order.date }}</h2>
+                        </div>
+                        <div class="col-md-3 text_align_left_mobile">
+                            {% if user.role == 'Заказчик'%}
+                            <h3>Цена: <span style="color: #50A663; font-weight: 700;">{{ order.price }} ₽</span></h3>
+                            {% elif user.role == 'Модератор' or user.role == 'Администратор' %}
+                            <h3>Полная стоиость: <span style="color: #50A663; font-weight: 700;">{{ order.price }} ₽</span></h3>
+                            {% elif user.role == 'Backend-developer' or user.role == 'Frontend-developer' or user.role == 'Fullstack-developer' %}
+                            <h3>Оплата: <span style="color: #50A663; font-weight: 700;">{{ (order.price|int * 0.7)|int }} ₽</span></h3>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 zakaz_con">
+                        <div class="row" style="height: 100%;">
+                            <div class="col-md-11">
+                                <div class="zakaz_cont pb-3">
+                            <h4>Название: </h4>
+                        <span>{{ order.title }}</span> <br>
+                        <h4>Описание: </h4>
+                        <span>{{ order.description }}</span><br>
+                        <h4>Git: </h4><a href="{{ order.git }}" target="_blank"> {{ order.git }}</a><br>
+                        <h4>Дизайн: </h4><a href="{{ order.figma }}" target="_blank"> {{ order.figma }}</a><br>
+                        <h4>URL: </h4><a href="{{ order.url }}" target="_blank"> {{ order.url }}</a><br>
+                        <h4>Другое: </h4>
+                        <span>{{ order.other }}</span>
+                        </div>
+                            </div>
+                            <div class="col-1 d-md-block d-none" style="text-align: right;">
+                                <div class="line_zakaz"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 zakaz_con pl-md-0 pb-3 zakaz_mob_cont">
+                        <h4>Дедлайн: </h4><span> {{ order.deadline }}</span><br>
+                        {% if user.role == 'Модератор' or user.role == 'Администратор' %}
+                        <h4>Заказчик:</h4><span> {{ client.username }}</span><br>
+                        <h4>Логин заказчика:</h4><span> {{ client.login }}</span><br>
+                        <h4>Тел. заказчика:</h4><span> {{ client.phone }}</span><br>
+                        <h4>Email. заказчика:</h4><span> {{ client.email }}</span><br>
+                        <h4>Telegram заказчика:</h4><span> {{ client.telegram }}</span><br>
+                        {% endif %}
+                        <h4>Модератор: </h4><span> {{ moderator.username }}</span><br>
+                        <h4>Дизайнер: </h4><span id="Designer"> {{ design.username }}</span><br>
+                        <h4>Frontend-developer: </h4><span id="Frontend-developer"> {{ frontend_developer.username }}</span><br>
+                        <h4>Backend-developer: </h4><span id="Backend-developer"> {{ backend_developer.username }}</span><br>
+                        <h4>Статус оплаты: </h4><span id="payment_status_html"> {{ order.payment_status }}</span><br>
+                        <h4>Статус работы: </h4><span id="work_status_html"> {{ order.status }}</span><br>
+                        {% if user.role != 'Заказчик' %}
+                        {% if user.role == 'Модератор' or user.role == 'Администратор' %}
+                        <form id="update_payment_status">
+                            <h4>Обновить статус оплаты: </h4><br>
+                            <input id="payment_status" type="text" placeholder="Статус"><button type="submit">Обновить</button>
+                        </form>
+                        {% endif %}
+                        <form id="update_work_status">
+                            <h4>Обновить статус работы: </h4><br>
+                            <input id="work_status" type="text" placeholder="Статус"><button type="submit">Обновить</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                <div style="text-align: left; border-top: 1px solid rgba(55, 44, 157, 0.40); padding-left: 15px;" class="mt-1 pb-3 pl-3">
+                    {% if user.role == 'Заказчик' %}
+                    <button class="personal_area_under_btn">Связаться с модератором</button>
+                    {% endif %}
+                    {% if user.role != 'Заказчик' %}
+                    <a href="/orders/edit/{{ order.id }}" style="text-align: right;">
+                        <button class="personal_area_under_btn">Редактировать</button>
+                    </a>
+                    {% endif %}
+                    {% if user.role == 'Модератор' or user.role == 'Администратор' %}
+                    <a data-bs-toggle="modal" data-bs-target="#modal-callback-executor">
+                        <button class="personal_area_under_btn" onclick="openModal('Designer')">Дизайнер</button>
+                    </a>
+                    <a data-bs-toggle="modal" data-bs-target="#modal-callback-executor">
+                        <button class="personal_area_under_btn" onclick="openModal('Frontend-developer')">Frontend-разработчик</button>
+                    </a>
+                    <a data-bs-toggle="modal" data-bs-target="#modal-callback-executor">
+                        <button class="personal_area_under_btn" onclick="openModal('Backend-developer')">Backend-разработчик</button>
+                    </a>
+                    <a data-bs-toggle="modal" data-bs-target="#modal-callback-payments">
+                        <button class="personal_area_under_btn">Сумма выплат</button>
+                    </a>
+                    {% if user.role == 'Модератор' %}
+                    <a data-bs-toggle="modal" data-bs-target="#modal-callback-dialog">
+                        <button class="personal_area_under_btn">Помощь администратора</button>
+                    </a>
+                    {% endif %}
+                    {% endif %}
+                    {% if user.role == 'Администратор' %}
+                    <a data-bs-toggle="modal" data-bs-target="#modal-callback-end">
+                        <button class="personal_area_under_btn">Завершить</button>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+                {% if user.role == 'Модератор' %}
+                <h1 class="zakazs_h1">Заявки администраторам</h1>
+                {% if moderator_requests %}
+                {% for requests in moderator_requests %}
+                <div class="zakaz mt-4 active" id="request_{{ requests.id }}">
+                    <div class="zakaz_head zakaz_head1">
+                        <div class="row">
+                            <div class="col-9">
+                                <h2 class="zakazs_h2">Заявка №{{ requests.id }} от {{ requests.date }}. Заказ №{{ requests.order_id }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="zakaz_cont" style="padding-bottom: 15px;">
+                                <h4>Модератор:</h4><span> {{ requests.moderator_name }}</span><br>
+                                <h4>Статус:</h4><span> {{ requests.status }}</span><br>
+                                <h4>Комментарий модератора: </h4><span> {{ requests.comment }}</span>
+                            </div>
+                            {% if requests.admin_id %}
+                            <div class="zakaz_cont" style="border-top: 1px solid rgba(55, 44, 157, 0.40);padding-bottom: 15px;">
+                                <h4>Рассмотренно администратором:</h4><span> {{ requests.admin_name }}</span><br>
+                                <h4>Ответ администратора:</h4><span> {{ requests.admin_comment }}</span><br>
+                                <h4>Дата ответа:</h4><span> {{ requests.answer_date }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="zakaz mt-4">
+                    <div class="zakaz_head zakaz_head1">
+                        <div class="row">
+                            <div class="col-9">
+                                <h2>Вы еще не подавали заявки на рассмотрение администрации.</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+              <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="width: 450px;">
+                <div class="modal-dialog-notif modal_dialog_new" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="border-bottom: 0px;">
+                            <div>
+                                <img src="{{ url_for('static', filename='img/CheckCircle.svg') }}" alt="" style="margin-top: -5px; margin-right: 10px;">
+                                <h5 class="modal-title" id="modal-callbackLabel-notif">Заявка отправлена</h5>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body" style="padding-top: 10px;">
+                            <p>Администрация получит заявку и постарается решить ваш вопрос.</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+              <div id="liveToast-promo" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="width: 450px;">
+                <div class="modal-dialog modal_dialog_new" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="border-bottom: 0px;">
+                            <div>
+                                <img src="{{ url_for('static', filename='img/CheckCircle.svg') }}" alt="" style="margin-top: -5px; margin-right: 10px;">
+                                <h5 class="modal-title" id="modal-callbackLabel-promo">Промокод применен</h5>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body" style="padding-top: 10px;">
+                            <p id="text_promo"></p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+<script>
+        $(document).on('submit', '#update_payment_status', function(e) {
+            e.preventDefault();
+            if (!$("#payment_status").val()) {
+                return console.log('fill fields');
+            }
+            var form_data = new FormData();
+            form_data.append('order_id', '{{ order.id }}');
+            form_data.append('payment_status', $("#payment_status").val());
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/orders/update/payment',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    $("#payment_status_html").html(` ${$("#payment_status").val()}`);
+                    $("#payment_status").val('');
+                }
+            })
+        })
+    </script>
+<script>
+        $(document).on('submit', '#update_work_status', function(e) {
+            e.preventDefault();
+            if (!$("#work_status").val()) {
+                return console.log('fill fields');
+            }
+            var form_data = new FormData();
+            form_data.append('order_id', '{{ order.id }}');
+            form_data.append('work_status', $("#work_status").val());
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/orders/update/work',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    $("#work_status_html").html(` ${$("#work_status").val()}`);
+                    $("#work_status").val('');
+                }
+            })
+        })
+    </script>
+<script>
+        function selectExecutor(id, role, username) {
+            var form_data = new FormData();
+            form_data.append('order_id', '{{ order.id }}');
+            form_data.append('executor_id', id);
+                form_data.append('executor_role', role);
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/orders/update/executor',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    if (role != 'Моушн-дизайнер') {
+                        $(`#${role}`).html(` ${username}`)
+                    } else {
+                        $(`#Designer`).html(` ${username}`)
+                    }
+                }
+            })
+        }
+    </script>
+<script>
+        function deleteExecutor(id, role, username) {
+            var form_data = new FormData();
+            form_data.append('order_id', '{{ order.id }}');
+            form_data.append('executor_id', id);
+                form_data.append('executor_role', role);
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/orders/delete/executor',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    if (role != 'Моушн-дизайнер') {
+                        $(`#${role}`).html(``);
+                    }
+                    else {
+                        $(`#Designer`).html(``);
+                    }
+                }
+            })
+        }
+    </script>
+<script>
+        function openModal(list) {
+            if (list === 'Designer') {
+                $("#modal-callbackLabel-role").html("Выбор исполнителя (Дизайнер)");
+
+                $("#backend_developers_list").css('display', 'none');
+                $("#frontend_developers_list").css('display', 'none');
+                $("#designers_list").css('display', 'flex');
+
+                $("#backend_developers_list_none").css('display', 'none');
+                $("#frontend_developers_list_none").css('display', 'none');
+                $("#designers_list_none").css('display', 'block');
+
+                $("#current_backend").css('display', 'none');
+                $("#current_frontend").css('display', 'none');
+                $("#current_designer").css('display', 'block');
+
+                $("#current_backend_card").css('display', 'none');
+                $("#current_frontend_card").css('display', 'none');
+                $("#current_designer_card").css('display', 'flex');
+
+                $("#free_backend").css('display', 'none');
+                $("#free_frontend").css('display', 'none');
+                $("#free_designers").css('display', 'block');
+
+
+                return;
+            }
+            if (list === 'Backend-developer') {
+                $("#modal-callbackLabel-role").html("Выбор исполнителя (Backend-developer)");
+
+                $("#backend_developers_list").css('display', 'flex');
+                $("#frontend_developers_list").css('display', 'none');
+                $("#designers_list").css('display', 'none');
+
+                $("#backend_developers_list_none").css('display', 'block');
+                $("#frontend_developers_list_none").css('display', 'none');
+                $("#designers_list_none").css('display', 'none');
+
+                $("#current_backend").css('display', 'block');
+                $("#current_frontend").css('display', 'none');
+                $("#current_designer").css('display', 'none');
+
+                $("#current_backend_card").css('display', 'flex');
+                $("#current_frontend_card").css('display', 'none');
+                $("#current_designer_card").css('display', 'none');
+
+                $("#free_backend").css('display', 'block');
+                $("#free_frontend").css('display', 'none');
+                $("#free_designers").css('display', 'none');
+
+                return;
+            }
+            if (list === 'Frontend-developer') {
+                $("#modal-callbackLabel-role").html("Выбор исполнителя (Frontend-developer)");
+
+                $("#backend_developers_list").css('display', 'none');
+                $("#frontend_developers_list").css('display', 'block');
+                $("#designers_list").css('display', 'none');
+
+                $("#backend_developers_list_none").css('display', 'none');
+                $("#frontend_developers_list_none").css('display', 'flex');
+                $("#designers_list_none").css('display', 'none');
+
+                $("#current_backend").css('display', 'none');
+                $("#current_frontend").css('display', 'block');
+                $("#current_designer").css('display', 'none');
+
+                $("#current_backend_card").css('display', 'none');
+                $("#current_frontend_card").css('display', 'flex');
+                $("#current_designer_card").css('display', 'none');
+
+                $("#free_backend").css('display', 'none');
+                $("#free_frontend").css('display', 'block');
+                $("#free_designers").css('display', 'none');
+
+                return;
+            }
+        }
+    </script>
+<script>
+        $(document).on('click', '#send_for_admin', function(e) {
+            e.preventDefault();
+            let comment = $("#comment_for_admin");
+            if (!comment.val()) {
+                comment.css('border', '2px solid red');
+                comment.focus(function () {
+                    comment.css('border', '1px solid black');
+                })
+                return;
+            }
+            var form_data = new FormData();
+            form_data.append('comment', comment.val());
+            form_data.append('order_id', '{{ order.id }}');
+            form_data.append('moderator_id', '{{ user.id }}');
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/admin/help',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    if (data["Status"] === "Success") {
+                        comment.val('');
+                        $("#close_admin_help").click();
+                        const toastLiveExample = document.getElementById('liveToast')
+                        const toast = new bootstrap.Toast(toastLiveExample)
+                        toast.show()
+                    }
+                }
+            })
+        })
+    </script>
+<script>
+        $(document).on('click', '#update_payments_value', function(e) {
+            e.preventDefault();
+            var form_data = new FormData();
+            form_data.append('moderator_payment', $("#moderator_payment").val());
+            form_data.append('designer_payment', $("#designer_payment").val());
+            form_data.append('frontend_payment', $("#frontend_payment").val());
+            form_data.append('backend_payment', $("#backend_payment").val());
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/orders/{{ order.id }}/update/payments',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                }
+            })
+        })
+    </script>
+<script>
+        $(document).on('click', '#end_order_btn', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/orders/{{ order.id }}/update/end',
+                data: false,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                }
+            })
+        })
+    </script>
+<script>
+        $(document).on('click', '#ok-sendFormBtn', function(e) {
+            e.preventDefault();
+            if (!$("#promocode").val()) {
+                return console.log('fill fields');
+            }
+            var form_data = new FormData();
+            form_data.append('promocode', $("#promocode").val());
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/write/promo',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    $("#promocode").val('');
+                    e.stopPropagation();
+                    $("#balance").html(`Баланс: ${data["Balance"]} ₽`);
+                }
+            })
+        })
+    </script>
+{% endblock %}

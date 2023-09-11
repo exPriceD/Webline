@@ -1,0 +1,466 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+    <style>
+        .modal_btn{
+            width: 100%;
+            text-align: right;
+        }
+        .modal_btn button{
+            border-radius: 4px;
+            background: #372C9D;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            color: white;
+            border: none;
+        }
+        .modal_btn1{
+            color: #2532A9 !important;
+            background: #B8B5D7 !important;
+        }
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .head_btn{
+            border-radius: 3px;
+            border: 2px solid #372C9D;
+            background: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            color: #372C9D;
+            width: 161px;
+            height: 36px;
+            margin-top: 15px;
+        }
+        .personal_area{
+            width: 100%;
+            padding: 20px 20px 20px 20px;
+            border-radius: 7px;
+            background: #372C9D;
+            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+            color: white;
+        }
+        .personal_area h3{
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 20px;
+            padding-top: 4%;
+        }
+        .personal_area h4{
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+        }
+        .personal_area h5{
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            padding-top: 7%;
+        }
+        .personal_area button{
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            color: #372C9D;
+            border-radius: 3px;
+            background: #FFF;
+            padding: 8px 16px;
+            border: none;
+        }
+        .zakaz{
+            width: 100%;
+            border-radius: 7px;
+            border: 1px solid rgba(55, 44, 157, 0.36);
+            background: #FFF;
+            box-shadow: 0px 4px 4px 0px rgba(55, 44, 157, 0.25);
+        }
+        .zakaz h2{
+            font-size: 21px;
+            font-style: normal;
+            font-weight: 500;
+            color: #372C9D;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            margin-bottom: 0px;
+            padding-left: 15px;
+        }
+        .zakaz h3{
+            padding-right: 15px;
+            color: #000;
+            font-family: Montserrat;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 25px;
+            padding-top: 26px;
+        }
+        .zakaz_head{
+            border-bottom: 1px solid rgba(55, 44, 157, 0.40);
+            width: 100%;
+        }
+        .zakaz h4{
+            color: #000;
+            font-family: Montserrat;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 25px;
+            display: inline-block;
+            margin-bottom: 0px;
+            margin-top: 15px;
+        }
+        .zakaz_con span{
+            color: #000;
+            font-family: Montserrat;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 25px;
+        }
+        .zakaz_cont{
+            padding-left: 15px;
+        }
+        .line_zakaz{
+            background: rgba(55, 44, 157, 0.40);
+            height: 100%;
+            width: 1px;
+            display: inline-block;
+        }
+        .zakaz_con button{
+            color: var(--gray-10, #FFF);
+            font-family: Montserrat;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            border-radius: 3px;
+            background: #372C9D;
+            padding: 8px 16px;
+            border:none;
+            margin-top: 10px;
+        }
+        .zakaz_con input{
+            border-radius: 4px;
+            border: 1px solid #565555;
+            background: var(--gray-10, #FFF);
+            padding: 6px 12px;
+            margin-right: 5px;
+        }
+        .zakazs_h3{
+            font-size: 20px !important;
+            padding-top: 30px !important;
+            padding-bottom: 0px !important;
+        }
+        .zakaz_head1{
+            border-bottom: 0px !important;
+        }
+        .zakazs_h2{
+            padding-bottom: 0px !important;
+        }
+                .close1 {
+            float: right;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #000;
+            text-shadow: 0 1px 0 #fff;
+            opacity: .5;
+            padding: 0;
+            background-color: transparent;
+            border: 0;
+        }
+        .modal-title{
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 28px;
+            color: #424242;
+            display: inline-block;
+        }
+        .modal_body p{
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px;
+            color: #757575;
+        }
+        .modal_btn{
+            width: 100%;
+            text-align: right;
+        }
+        .modal_btn button{
+            border-radius: 4px;
+            background: #372C9D;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            color: white;
+            border: none;
+        }
+        .modal_btn1{
+            color: #2532A9 !important;
+            background: #B8B5D7 !important;
+        }
+        .modal_dialog_new{
+            padding: 24px 24px 24px 24px;
+            border-radius: 13px;
+            border: 2px solid rgba(55, 44, 157, 0.36);
+            background: #FFF;
+            box-shadow: 0px 0px 7px 0px #372C9D;
+        }
+        .zakaz_btn{
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            color: white;
+            border-radius: 3px;
+            background: #372C9D;
+            padding: 8px 16px;
+            margin-left: 15px;
+            border: none;
+        }
+        .zakaz h6{
+            color: #000;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            margin-right: 15px;
+        }
+        .zakazs_h1{
+            color: #372C9D;
+            text-align: center;
+            font-size: 22px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .personal_area_under_btn{
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            color: white;
+            border-radius: 3px;
+            background: #372C9D;
+            padding: 8px 16px;
+            border:none;
+            margin-top: 15px;
+        }
+        .zakaz_btn_zav{
+            margin-right: 15px;
+            margin-top: 25px;
+        }
+        .ava {
+            border-radius: 50px;
+            background-color: #000;
+        }
+        .ava:hover {
+            filter: brightness(60%)
+        }
+        .text_align_left_mobile{
+    text-align: right;
+}
+a{
+    text-decoration: none !important;
+}
+                @media(max-width: 768px){
+            .text_align_left_mobile{
+                    text-align: left;
+                }
+                .zakaz h3{
+        padding-left: 15px;
+        padding-top: 10px !important;
+    }
+    .zakaz_cont{
+        padding-right: 15px;
+    }
+    .zakaz h6{
+        padding-left: 15px;
+    }
+    .zakaz h2{
+        font-size: 18px;
+    }
+    .zakaz h3{
+        font-size: 18px !important;
+    }
+    .head_btn{
+        font-size: 13px;
+        width: 61px;
+    }
+    .zakaz_btn_zav{
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+}
+.text_center_mobile{
+    text-align: right;
+}
+@media(max-width: 568px){
+    .personal_area_under_btn{
+        font-size: 13px;
+    }
+    .personal_area h3{
+        font-size: 14px;
+    }
+    .personal_area h4{
+        font-size: 16px;
+    }
+    .text_center_mobile{
+    text-align: center;
+}
+.personal_area button{
+    font-size: 10px;
+}
+.personal_area h5{
+    font-size: 16px;
+}}
+a{
+    text-decoration: none !important;
+}
+</style>
+    <div class="modal fade" id="modal-callback" tabindex="-1" role="dialog" aria-labelledby="modal-callbackLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none" style="margin-top: -7px; margin-right: 10px;">
+                            <g clip-path="url(#clip0_1_3678)">
+                                <path d="M16.0001 29.3334C23.3639 29.3334 29.3334 23.3639 29.3334 16.0001C29.3334 8.63628 23.3639 2.66675 16.0001 2.66675C8.63628 2.66675 2.66675 8.63628 2.66675 16.0001C2.66675 23.3639 8.63628 29.3334 16.0001 29.3334Z" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 21.3333V16" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16 10.6667H16.0133" stroke="#372C9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </g>
+                            <defs>
+                                <clipPath id="clip0_1_3678">
+                                    <rect width="32" height="32" fill="white" /> </clipPath>
+                            </defs>
+                        </svg>
+                        <h5 class="modal-title" id="modal-callbackLabel">Ввести промокод</h5></div>
+                </div>
+                <div class="modal-body" style="padding-top: 0px;">
+                    <p>Введите свой промокод и получите денежную сумму на ваш баланс. Если промокод не найден, но вы уверены в корректности ввода, обратитесь к модератору сайта или напишите нам на почту email@mail.ru</p>
+                    <div style="margin-bottom: 20px;">
+                        <input type="text" placeholder="Промокод" id="promocode" style="width: 100%; height: 45px; margin-bottom: 7px;">
+                        <h11 id="error_text" style="display:none; color:red">Промокод не найден</h11>
+                    </div>
+                    <div class="modal_btn">
+                        <button id="sendFormBtn">Окей</button>
+                        <button id="close_promo" data-bs-dismiss="modal" aria-label="Close" class="modal_btn1">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3 pb-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="zakazs_h1">Заявки на вывод средств</h1>
+                {% if consideration %}
+                {% for payment in consideration %}
+                <div class="zakaz mt-4">
+                    <div class="zakaz_head zakaz_head1">
+                        <div class="row">
+                            <div class="col-md-9" style="flex-direction: row;display: flex;">
+                                <h2 style="width: 100%;">
+                                    {% if payment.status == 'Отклонена' %}
+                                    <span style="color: #FF4141">{{ payment.status }}</span>
+                                    {% elif payment.status == 'Принята' %}
+                                    <span style="color: #15FF1E">{{ payment.status }}</span>
+                                    {% else %}
+                                    <span style="color: #FFA115">{{ payment.status }}</span>
+                                    {% endif %}
+                                    Заявка на выплату №{{ payment.id }} от {{ payment.date }}
+                                </h2>
+                            </div>
+                            <a href="/orders/payments/{{ payment.id }}" class="col-md-3 text_align_left_mobile">
+                                <button class="zakaz_btn zakaz_btn_zav">Подробнее</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="zakaz mt-4">
+                    <div class="zakaz_head zakaz_head1">
+                        <div class="row">
+                            <div class="col-9">
+                                <h2>Заявки не найдены</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-12">
+                <h1 class="zakazs_h1">Завершенные заявки</h1>
+                {% if ended %}
+                {% for payment in ended %}
+                <div class="zakaz mt-4">
+                    <div class="zakaz_head zakaz_head1">
+                        <div class="row">
+                            <div class="col-md-9" style="flex-direction: row;display: flex;">
+                                <h2 style="width: 100%;">
+                                    {% if payment.status == 'Отклонена' %}
+                                    <span style="color: #FF4141">{{ payment.status }}</span>
+                                    {% elif payment.status == 'Принята' %}
+                                    <span style="color: #15FF1E">{{ payment.status }}</span>
+                                    {% else %}
+                                    <span style="color: #FFA115">{{ payment.status }}</span>
+                                    {% endif %}
+                                    Заявка на выплату №{{ payment.id }} от {{ payment.date }}
+                                </h2>
+                            </div>
+                            <a href="/orders/payments/ended/{{ payment.id }}" class="col-md-3 text_align_left_mobile">
+                                <button class="zakaz_btn zakaz_btn_zav">Подробнее</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="zakaz mt-4">
+                    <div class="zakaz_head zakaz_head1">
+                        <div class="row">
+                            <div class="col-9">
+                                <h2>Заявки не найдены</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+              <div id="liveToast-promo" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="width: 450px;">
+                <div class="modal-dialog modal_dialog_new" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="border-bottom: 0px;">
+                            <div>
+                                <img src="{{ url_for('static', filename='img/CheckCircle.svg') }}" alt="" style="margin-top: -5px; margin-right: 10px;">
+                                <h5 class="modal-title" id="modal-callbackLabel-promo">Промокод применен</h5>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body" style="padding-top: 10px;">
+                            <p id="text_promo"></p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
