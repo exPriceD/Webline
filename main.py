@@ -29,13 +29,8 @@ def index():
         if form and form["name"] and form["company"] and form["phone"] and form["email"] and form["message"]:
             dt_now = str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M"))
             client_request = Requests(
-                status='Рассмотрение',
-                date=dt_now,
-                name=form["name"],
-                email=form["email"],
-                phone=form["phone"],
-                company=form["company"],
-                message=form["message"]
+                status='Рассмотрение', date=dt_now, name=form["name"], email=form["email"],
+                phone=form["phone"],company=form["company"], message=form["message"]
             )
             db.session.add(client_request)
             db.session.flush()
