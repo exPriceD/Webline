@@ -1,9 +1,11 @@
-from flask import render_template, request, jsonify, redirect, session
+from flask import render_template, request, jsonify, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_mail import Message
 from flask_login import login_user, login_required, current_user, logout_user
-from config import application, login_manager
+from config import application, login_manager, mail
 from models import db, Orders, Users, Requests, PaymentRequests, Promocodes, ModeratorRequests
 import datetime
+from threading import Thread
 
 
 @login_manager.user_loader
@@ -38,8 +40,34 @@ def index():
             db.session.add(client_request)
             db.session.flush()
             db.session.commit()
+            subject = f"Заявка от пользователя"
+            body = f'Дата: {dt_now}\nИмя: {form["name"]}\nEmail: {form["email"]}\nТелефон: {form["phone"]}\n'
+            body += f'Компания: {form["company"]}\nСообщение: {form["message"]}'
+            send_mail(subject=subject, recipient="weblinecompany@mail.ru", body=body)
             return jsonify({'message': "Success"})
     return render_template('index.html')
+
+
+@application.route('/en', methods=["POST", "GET"])
+def index_en():
+    if request.method == "POST":
+        form = request.form.to_dict()
+        if form and form["name"] and form["company"] and form["phone"] and form["email"] and form["message"]:
+            dt_now = str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M"))
+            client_request = Requests(
+                status='Рассмотрение',
+                date=dt_now,
+                name=form["name"],
+                email=form["email"],
+                phone=form["phone"],
+                company=form["company"],
+                message=form["message"]
+            )
+            db.session.add(client_request)
+            db.session.flush()
+            db.session.commit()
+            return jsonify({'message': "Success"})
+    return render_template('index_en.html')
 
 
 @application.route('/orders')
@@ -630,6 +658,18 @@ def check_users(login):
     if Users.query.filter_by(login=login).all():
         return False
     return True
+
+
+def async_send_mail(app, msg):
+    with app.app_context():
+        mail.send(msg)
+
+
+def send_mail(subject: str, recipient: str, body: str, **kwargs):
+    msg = Message(subject, body=body, sender=application.config['MAIL_DEFAULT_SENDER'], recipients=[recipient])
+    thr = Thread(target=async_send_mail,  args=[application,  msg])
+    thr.start()
+    return thr
 
 
 if __name__ == "__main__":
