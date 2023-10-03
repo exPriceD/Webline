@@ -69,3 +69,10 @@ $(document).on('click', '#sendFormBtn', function(e) {
         }
     })
 })
+$(document).on("click", "#close_promo", function(e) {
+    e.preventDefault();
+    let promocode = $("#promocode");
+    let error_text = $("#error_text");
+    promocode.css('border', '1px solid black');
+    error_text.css('display', 'none');
+})
