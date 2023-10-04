@@ -119,17 +119,17 @@ def add_order():
             client = Users.query.filter_by(login=form["client_login"]).first()
             if not(client):
                 return jsonify({'Status': "Client not found"})
-            admin_payment = ''
-            moderator_payment = ''
-            designer_payment = ''
-            frontend_payment = ''
-            backend_payment = ''
+            admin_payment_amount = ''
+            moderator_payment_amount = ''
+            designer_payment_amount = ''
+            frontend_payment_amount = ''
+            backend_payment_amount = ''
             if form["price"]:
-                admin_payment = str(int(form["price"]) * 0.05),
-                moderator_payment = str(int(form["price"]) * 0.05),
-                designer_payment = str(int(form["price"]) * 0.25),
-                frontend_payment = str(int(form["price"]) * 0.25),
-                backend_payment = str(int(form["price"]) * 0.25)
+                admin_payment_amount = str(int(form["price"]) * 0.05)
+                moderator_payment_amount = str(int(form["price"]) * 0.05)
+                designer_payment_amount = str(int(form["price"]) * 0.25)
+                frontend_payment_amount = str(int(form["price"]) * 0.25)
+                backend_payment_amount = str(int(form["price"]) * 0.25)
             dt_now = str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M"))
             client_order = Orders(
                 client_id=form["client_login"],
@@ -145,11 +145,11 @@ def add_order():
                 figma=form['figma'],
                 other=form['other'],
                 moderator_id=current_user.id,
-                admin_payment=admin_payment,
-                moderator_payment=moderator_payment,
-                designer_payment=designer_payment,
-                frontend_payment=frontend_payment,
-                backend_payment=backend_payment
+                admin_payment=admin_payment_amount,
+                moderator_payment=moderator_payment_amount,
+                designer_payment=designer_payment_amount,
+                frontend_payment=frontend_payment_amount,
+                backend_payment=backend_payment_amount
             )
             db.session.add(client_order)
             db.session.flush()
