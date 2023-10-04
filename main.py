@@ -161,11 +161,14 @@ def add_order():
 @application.route('/orders/<id>')
 @login_required
 def detailed(id):
+    order = Orders.query.filter_by(id=id).first()
+    if current_user.role == "Заказчик":
+        if current_user.login != order.client_id:
+            return ''
     moderator = False
     design = False
     frontend_developer = False
     backend_developer = False
-    order = Orders.query.filter_by(id=id).first()
     client = Users.query.filter_by(login=order.client_id).first()
     designers_list = []
     frontend_developers_list = []
@@ -345,7 +348,7 @@ def create_user():
             db.session.add(user)
             db.session.flush()
             db.session.commit()
-            return jsonify({'Status': 'Success!'})
+            return jsonify({'Status': 'Success'})
     return render_template('add_user.html', user=current_user)
 
 
