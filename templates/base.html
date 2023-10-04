@@ -54,12 +54,14 @@
                         </div>
                     </div>
                 </div>
+                {% if user.role != "Заказчик"%}
                 <div class="col-md-3 col-5 text_center_mobile">
                     <h5 id="balance">Баланс: {{ user.balance }} ₽</h5>
                     <a href="/withdrawal">
                          <button>Вывод средств</button>
                     </a>
                 </div>
+                {% endif %}
             </div>
         </div>
         {% if user.role == 'Администратор' %}
